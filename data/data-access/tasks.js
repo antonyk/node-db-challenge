@@ -11,13 +11,32 @@ module.exports = {
 const tableName = 'tasks';
 
 function getSet() {
-  return db(tableName);
+  return db(tableName)
+    .columns({
+      id: 'tasks.id',
+      task: 'tasks.description',
+      notes: 'tasks.notes',
+      completed: 'tasks.completed',
+      project_id: 'tasks.project_id'
+    })
+    .select()
 }
 
 function getSetDeep() {
   return db(tableName)
     .join('projects', 'tasks.project_id', 'projects.id')
-    .select('*');
+    .column({
+      id: 'tasks.id',
+      task: 'tasks.description',
+      notes: 'tasks.notes',
+      completed: 'tasks.completed',
+      project_id: 'tasks.project_id',
+      project: 'projects.name',
+      description: 'projects.description'
+    })
+    .select();
+
+    // .select('tasks.id', 'tasks.description', 'tasks.notes', 'tasks.completed', 'projects.name', 'projects.description');
 }
 
 function getOne(id) {
@@ -40,14 +59,13 @@ function getOneDeep(id) {
   }
 }
 
-function all(id, deep = true) {
+function all(id, deep = true, filter = {}) {
   if (id) {
     return deep ? getOneDeep(id) : getOne(id);
   } else {
     return deep ? getSetDeep(id) : getSet(id);
   }
 }
-
 
 function create(data) {
   return db(tableName)
