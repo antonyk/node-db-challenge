@@ -8,6 +8,12 @@ exports.up = function(knex) {
     table.string('description');
     table.boolean('completed').notNullable().defaultTo(false);
   })
+  .createTable('resources', table => {
+    table.increments('id');
+
+    table.string('name', 255).notNullable();
+    table.string('description');
+  })
   .createTable('tasks', table => {
     table.increments('id');
 
@@ -15,24 +21,26 @@ exports.up = function(knex) {
     table.string('notes');
     table.boolean('completed').notNullable().defaultTo(false);
 
+    // 1-* with projects
     table.integer('project_id').unsigned().notNullable()
       .references('id').inTable('projects').onDelete('CASCADE').onUpdate('CASCADE');
   })
-  .createTable('resources', table => {
+  .createTable('project_resources', table => {
     table.increments('id');
 
-    table.string('name', 255).notNullable();
-    table.string('description');
-
+    // *-*
     table.integer('project_id').unsigned().notNullable()
       .references('id').inTable('projects').onDelete('CASCADE').onUpdate('CASCADE');
+    table.integer('resource_id').unsigned().notNullable()
+      .references('id').inTable('resources').onDelete('CASCADE').onUpdate('CASCADE');
   })
 };
 
 exports.down = function(knex) {
 
   return knex.schema
-    .dropIfTableExists('resources')
+    .dropIfTableExists('project_resources')
     .dropIfTableExists('tasks')
+    .dropIfTableExists('resources')
     .dropIfTableExists('projects')
 };
