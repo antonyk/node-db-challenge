@@ -5,10 +5,12 @@ module.exports = {
   getOne
 }
 
+const tableName = 'resources';
+
 function all(id) {
   return id ?
-    db('projects').where('id', id) : 
-    db('projects');
+  db(tableName).where('id', id) : 
+  db(tableName);
 }
 
 function getOne(id) {
@@ -21,7 +23,7 @@ function getOne(id) {
 }
 
 function create(data) {
-  return db('projects')
+  return db(tableName)
     .insert(data, 'id')
     .then(result => {
       console.log('proj insert res:', result)

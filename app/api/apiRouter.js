@@ -9,8 +9,11 @@ api.get('/', (req, res) => {
 })
 
 // sub-routes
-const usersRouter = require('./users/usersRouter')
-api.use('/users', usersRouter);
+const projectsRouter = require('./projects/projectsRouter')
+api.use('/projects', projectsRouter);
 
-const productsRouter = require('./products/productsRouter')
-api.use('/products', productsRouter);
+const resourcesRouter = require('./resources/resourcesRouter')
+api.use('/resources', resourcesRouter);
+
+const tasksRouter = require('./tasks/tasksRouter')
+api.use('/tasks', tasksRouter);
