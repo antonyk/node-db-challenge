@@ -47,3 +47,13 @@ router.post('/', (req, res) => {
       res.status(500).json({message: "Unable to create item"})
     })
 })
+
+router.delete('/:id', (req, res) => {
+  projects.remove(req.params.id)
+    .then(result => {
+      res.status(200).json({ message: 'Successfully deleted item'})
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'Unable to delete item'})
+    })
+})

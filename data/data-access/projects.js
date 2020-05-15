@@ -2,7 +2,8 @@ const db = require('../dbConnection');
 module.exports = {
   all,
   create,
-  getOne
+  getOne,
+  remove
 }
 
 function all(id) {
@@ -31,4 +32,10 @@ function create(data) {
         throw 'database failed to return new ID';
       }
     })
+}
+
+function remove(id) {
+  return db('projects')
+    .where("id", id)
+    .del()
 }

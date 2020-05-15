@@ -4,7 +4,8 @@ module.exports = {
   create,
   getOne,
   getSetDeep,
-  getSet
+  getSet,
+  remove
 }
 
 const tableName = 'tasks';
@@ -59,4 +60,10 @@ function create(data) {
         throw 'database failed to return new ID';
       }
     })
+}
+
+function remove(id) {
+  return db(tableName)
+    .where("id", id)
+    .del()
 }
