@@ -40,11 +40,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+SQL or T-SQL is the language we use when interacting with relational databases in order to perform queries or modify the database schemas. A relational database, aka a relational database management system (RDBMS) is the application or software that can create relational databases and understands SQL/TSQL.
+
 - [ ] Why do tables need a `primary key`?
+
+Tables need a primary key in order to ensure that every record can be uniquely identified and that unique property will always refer to the same record no matter what else changes about it.
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+Foreign key
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+We need an intermediary (junction) table to connect two other tables in order to create a * to * relationship. This intermediary teable will have foreign keys to the tables it is linking.
 
 ## Minimum Viable Product
 
